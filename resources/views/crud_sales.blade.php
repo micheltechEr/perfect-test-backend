@@ -4,43 +4,47 @@
     <h1>Adicionar / Editar Venda</h1>
     <div class='card'>
         <div class='card-body'>
-            <form>
+            <form action="/product_sell" method="POST">
+                @csrf
                 <h5>Informações do cliente</h5>
                 <div class="form-group">
                     <label for="name">Nome do cliente</label>
-                    <input type="text" class="form-control " id="name">
+                    <input type="text" class="form-control" name="client_name" id="name">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email">
+                    <input type="text" class="form-control" name="client_email" id="email">
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    <input type="text" class="form-control" id="cpf" placeholder="99999999999">
+                    <input type="text" class="form-control" name="client_cpf" id="cpf" placeholder="99999999999">
                 </div>
                 <h5 class='mt-5'>Informações da venda</h5>
                 <div class="form-group">
                     <label for="product">Produto</label>
-                    <select id="product" class="form-control">
+                    <select id="product" name="product_id" class="form-control">
                         <option selected>Escolha...</option>
+                        @foreach ($products as $product )
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        @endforeach
                         <option>...</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="date">Data</label>
-                    <input type="text" class="form-control single_date_picker" id="date">
+                    <input type="text" class="form-control single_date_picker" name="sale_date" id="date">
                 </div>
                 <div class="form-group">
                     <label for="quantity">Quantidade</label>
-                    <input type="text" class="form-control" id="quantity" placeholder="1 a 10">
+                    <input type="text" class="form-control" name="quantity" id="quantity" placeholder="1 a 10">
                 </div>
                 <div class="form-group">
                     <label for="discount">Desconto</label>
-                    <input type="text" class="form-control" id="discount" placeholder="100,00 ou menor">
+                    <input type="text" class="form-control" name="discount" id="discount" placeholder="100,00 ou menor">
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select id="status" class="form-control">
+                    <select id="status" name="status" class="form-control">
                         <option selected>Escolha...</option>
                         <option>Aprovado</option>
                         <option>Cancelado</option>

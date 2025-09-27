@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductSellController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,12 +17,11 @@ use Illuminate\Support\Facades\Route;
 /*
 Telas para ver o funcionamento sem dados
 */
-Route::get('/', function () {
-    return view('dashboard');
-});
-Route::get('/sales', function () {
-    return view('crud_sales');
-});
+
+Route::get( '/',[ProductController::class,'dashboard']);
+Route::get('/sales', [ProductController::class, 'sell_product']);
 Route::get('/products', function () {
     return view('crud_products');
 });
+Route::post('/product', [ProductController::class, 'store']);
+Route::post('/product_sell', [ProductSellController::class, 'store']);
