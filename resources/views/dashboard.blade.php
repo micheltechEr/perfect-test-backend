@@ -29,8 +29,14 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Período</div>
                             </div>
-                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username">
-                        </div>
+                            <form action="/vendas/filtrar" method="GET">
+                                <label for="date_range">Filtrar por data:</label>
+                                
+                                {{-- Seu input, com um 'name' para o Laravel poder recebê-lo --}}
+                                <input type="text" class="form-control date_range" name="date_range" id="date_range" placeholder="Selecione um intervalo">
+                                
+                                <button type="submit">Filtrar</button>
+                            </form>                        </div>
                     </div>
                     <div class="col-sm-1 my-1">
                         <button type="submit" class="btn btn-primary" style='padding: 14.5px 16px;'>
@@ -53,48 +59,17 @@
                         Ações
                     </th>
                 </tr>
+                @foreach ($latestSells as $sale)
                 <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h15
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
+                    <td>{{ $sale->product->name }}</td>
+                    <td> {{ date_format($sale->created_at, 'd/m/Y H:i') }}</td>
+                    <td> {{'R$' . number_format($sale->total_price, 2, ',', '.') }} </td>
                     <td>
                         <a href='' class='btn btn-primary'>Editar</a>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h20
-                    </td>
-                    <td>
-                        R$ 125,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h45
-                    </td>
-                    <td>
-                        R$ 110,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                
+                @endforeach
             </table>
         </div>
     </div>
@@ -166,7 +141,7 @@
                         Ações
                     </th>
                 </tr>
-                @foreach ($products as $product )
+                @foreach ($latestProducts as $product )
                 <tr>
                     <td> {{ $product->name }}</td>
                     <td> {{ date_format($product->created_at, 'd/m/Y H:i') }} </td>

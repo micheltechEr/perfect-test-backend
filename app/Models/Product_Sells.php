@@ -20,4 +20,8 @@ protected $fillable = [
     'total_price'
 ];
 protected $table = 'product_sells';
+public function product(){
+    //Esta venda pertence à  um Produto
+    return $this->belongsTo(Product::class);
+}
 }

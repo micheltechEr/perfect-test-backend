@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSellController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,7 @@ use App\Http\Controllers\ProductSellController;
 Telas para ver o funcionamento sem dados
 */
 
-Route::get( '/',[ProductController::class,'dashboard']);
+Route::get( '/',[DashboardController::class,'dashboard']);
 Route::get('/sales', [ProductController::class, 'sell_product']);
 Route::get('/products', function () {
     return view('crud_products');
