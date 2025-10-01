@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSellController;
@@ -18,8 +19,8 @@ use App\Http\Controllers\DashboardController;
 /*
 Telas para ver o funcionamento sem dados
 */
-
-Route::get( '/',[DashboardController::class,'dashboard']);
+Route::get('/',[HomeController::class,'index']);
+Route::get( '/dashboard',[DashboardController::class,'dashboard']);
 Route::get('/sales', [ProductController::class, 'sell_product']);
 Route::get('/products', function () {
     return view('crud_products');

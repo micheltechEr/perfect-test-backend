@@ -37,11 +37,11 @@ class ProductSellController extends Controller
                 'status'=> $validateData['status'],
                 'total_price'=>$total_price
             ]);
-            return redirect('/')->with('success', 'Venda registrada com sucesso!');
+            return redirect('/dashboard')->with('success', 'Venda registrada com sucesso!');
         }
         catch(\Exception $e){
             \Log::error('Erro ao registrar venda: ' . $e->getMessage());
-            return redirect('/')->with('error', 'Erro ao registrar venda: '.$e->getMessage());
+            return redirect('/dashboard')->with('error', 'Erro ao registrar venda: '.$e->getMessage());
         }
     }
 

@@ -30,7 +30,6 @@
                                 <div class="input-group-text">Período</div>
                             </div>
                             <form action="/vendas/filtrar" method="GET">
-                                <label for="date_range">Filtrar por data:</label>
                                 
                                 {{-- Seu input, com um 'name' para o Laravel poder recebê-lo --}}
                                 <input type="text" class="form-control date_range" name="date_range" id="date_range" placeholder="Selecione um intervalo">
@@ -59,7 +58,7 @@
                         Ações
                     </th>
                 </tr>
-                @foreach ($latestSells as $sale)
+                @foreach ($sales_date as $sale)
                 <tr>
                     <td>{{ $sale->product->name }}</td>
                     <td> {{ date_format($sale->created_at, 'd/m/Y H:i') }}</td>
@@ -93,10 +92,11 @@
                         Vendidos
                     </td>
                     <td>
-                        100
+                        {{ $totalSellsCount }}
                     </td>
+
                     <td>
-                        R$ 100,00
+                        {{ number_format($totalRevenues, 2, ',', '.') }}
                     </td>
                 </tr>
                 <tr>
@@ -104,10 +104,10 @@
                         Cancelados
                     </td>
                     <td>
-                        120
+                       {{ $cancelledSellsCount }}
                     </td>
                     <td>
-                        R$ 100,00
+                        {{ number_format($cancelledSellsRevenue, 2, ',', '.') }}
                     </td>
                 </tr>
                 <tr>
@@ -115,10 +115,10 @@
                         Devoluções
                     </td>
                     <td>
-                        120
+                        {{ $devolutionSellsCount }}
                     </td>
                     <td>
-                        R$ 100,00
+                        {{ number_format($devolutionSellsRevenue, 2, ',', '.') }}
                     </td>
                 </tr>
             </table>
