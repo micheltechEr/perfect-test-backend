@@ -5,8 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Product_Sells;
+use Illuminate\Contracts\View\View; // <-- Correto para o type hint de retorno
 class ProductSellController extends Controller
 {
+    public function index(){
+        try{
+            $product_sales = Product::all();
+            return view('crud_sales',['product_sales'=>$product_sales]);
+        }
+        catch(\Exception $e){
+            return redirect('/')->with('error', 'Erro ao buscar vendas: '.$e->getMessage());
+        }
+    }
 
     public function store(Request $request)
     {
@@ -59,9 +69,9 @@ class ProductSellController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product):View
     {
-        //
+        return view('partials._form',['product'=>$product]);
     }
 
     public function update(Request $request, $id)

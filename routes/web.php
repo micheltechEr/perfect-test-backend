@@ -19,11 +19,10 @@ use App\Http\Controllers\DashboardController;
 /*
 Telas para ver o funcionamento sem dados
 */
-Route::get('/',[HomeController::class,'index']);
 Route::get( '/dashboard',[DashboardController::class,'dashboard']);
-Route::get('/sales', [ProductController::class, 'sell_product']);
-Route::get('/products', function () {
-    return view('crud_products');
-});
-Route::post('/product', [ProductController::class, 'store']);
+Route::get('/sales', [ProductSellController::class, 'index']);
+Route::get('/products', [ProductController::class,'index']);
+Route::post('/product', [ProductController::class, 'store'])->name('products.store');
+Route::get('/products/{product}', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::post('/product_sell', [ProductSellController::class, 'store']);

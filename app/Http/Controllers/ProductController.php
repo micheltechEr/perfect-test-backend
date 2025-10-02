@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 class ProductController extends Controller
 {
+    public function index(){
+       return view('crud_products');
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -17,30 +20,35 @@ class ProductController extends Controller
             'description'=>$request->input('description'),
             'price'=>$request->input('price'),
         ]);
-        return redirect('/')->with('success', 'Produto criado com sucesso!');
+        return redirect('/dashboard')->with('success', 'Produto criado com sucesso!');
         }
         catch(\Exception $e){
-            return redirect('/')->with('error', 'Erro ao criar produto: '.$e->getMessage());
+            return redirect('/dashboard')->with('error', 'Erro ao criar produto: '.$e->getMessage());
         }
     }
-    public function dashboard()
+    public function edit($id)
     {
-        try{
-            $products = Product::all();
-            return view('dashboard',['products'=>$products]);
-        }
-        catch(\Exception $e){
-            return redirect('/')->with('error', 'Erro ao buscar produtos: '.$e->getMessage());
-        }
+        $product = Product::findOrFail($id);
+        return view('crud_products', ['product' => $product]);
+
     }
-    public function sell_product()
+    public function update(Request $request, Product $product)
     {
+        $request->validate([
+            'name'=> 'required',
+            'description'=>'required',
+            'price'=> 'required'
+        ]);
         try{
-            $products = Product::all();
-            return view('crud_sales',['products'=>$products]);
+            $product->update([
+            'name'=>$request->input('name'),
+            'description'=>$request->input('description'),
+            'price'=>$request->input('price'),
+        ]);
+        return redirect('/dashboard')->with('success', 'Produto atualizado com sucesso!');
         }
         catch(\Exception $e){
-            return redirect('/')->with('error', 'Erro ao buscar produtos: '.$e->getMessage());
+            return redirect('/dashboard')->with('error', 'Erro ao atualizar produto: '.$e->getMessage());
         }
     }
 }

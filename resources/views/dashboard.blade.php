@@ -147,7 +147,7 @@
                     <td> {{ date_format($product->created_at, 'd/m/Y H:i') }} </td>
                     <td> {{'R$' . number_format($product->price, 2, ',', '.') }} </td>
                     <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
+                        <a href='{{ route('products.edit', $product->id) }}' class='btn btn-primary'>Editar</a>
                     </td>
                 </tr>                
                 @endforeach

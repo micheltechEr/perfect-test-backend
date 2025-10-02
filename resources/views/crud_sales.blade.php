@@ -24,7 +24,7 @@
                     <label for="product">Produto</label>
                     <select id="product" name="product_id" class="form-control">
                         <option selected>Escolha...</option>
-                        @foreach ($products as $product )
+                        @foreach ($product_sales as $product )
                             <option value="{{ $product->id }}">{{ $product->name }}</option>
                         @endforeach
                         <option>...</option>
