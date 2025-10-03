@@ -1,57 +1,21 @@
 @extends('layout')
 
 @section('content')
-    <h1>Adicionar / Editar Venda</h1>
+@php
+    $isEdit = isset($product_sell);
+@endphp
+    <h1>{{ $isEdit ? 'Editar Venda' : 'Adicionar Venda' }}</h1>
     <div class='card'>
         <div class='card-body'>
-            <form action="/product_sell" method="POST">
+            <form action="{{ $isEdit ? route('product_sell.update', $product_sell->id) : route('product_sell.store') }}" method="POST">
+                @if($isEdit)
+                    @method('PUT')
+                @endif
                 @csrf
-                <h5>Informações do cliente</h5>
-                <div class="form-group">
-                    <label for="name">Nome do cliente</label>
-                    <input type="text" class="form-control" name="client_name" id="name">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" name="client_email" id="email">
-                </div>
-                <div class="form-group">
-                    <label for="cpf">CPF</label>
-                    <input type="text" class="form-control" name="client_cpf" id="cpf" placeholder="99999999999">
-                </div>
-                <h5 class='mt-5'>Informações da venda</h5>
-                <div class="form-group">
-                    <label for="product">Produto</label>
-                    <select id="product" name="product_id" class="form-control">
-                        <option selected>Escolha...</option>
-                        @foreach ($product_sales as $product )
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
-                        @endforeach
-                        <option>...</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="date">Data</label>
-                    <input type="text" class="form-control single_date_picker" name="sale_date" id="date">
-                </div>
-                <div class="form-group">
-                    <label for="quantity">Quantidade</label>
-                    <input type="text" class="form-control" name="quantity" id="quantity" placeholder="1 a 10">
-                </div>
-                <div class="form-group">
-                    <label for="discount">Desconto</label>
-                    <input type="text" class="form-control" name="discount" id="discount" placeholder="100,00 ou menor">
-                </div>
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select id="status" name="status" class="form-control">
-                        <option selected>Escolha...</option>
-                        <option>Aprovado</option>
-                        <option>Cancelado</option>
-                        <option>Devolvido</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                @include('partials._form_sell', ['product_sell' => $product_sell ?? null])
+                <button type="submit" class="btn btn-primary">
+                    {{ $isEdit ? 'Atualizar Venda' : 'Salvar Venda' }}
+                </button>
             </form>
         </div>
     </div>

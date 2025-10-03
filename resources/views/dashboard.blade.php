@@ -64,7 +64,7 @@
                     <td> {{ date_format($sale->created_at, 'd/m/Y H:i') }}</td>
                     <td> {{'R$' . number_format($sale->total_price, 2, ',', '.') }} </td>
                     <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
+                        <a href='{{ route('product_sell.edit', $sale->id) }}' class='btn btn-primary'>Editar</a>
                     </td>
                 </tr>
                 
